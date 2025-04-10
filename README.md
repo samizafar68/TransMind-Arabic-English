@@ -21,7 +21,9 @@ Deployed with an intuitive **Streamlit Web App** for live interaction and demons
 
 Try it yourself:
 
-🔗 **[Live Streamlit App](#)** *(replace with your actual link)*
+🔗 **[Live Streamlit App](#)** *https://transmind-arabic-english-h9pqu2tvwjjqdxeq4jan3s.streamlit.app/*
+🔗 **[See On Linkedln](#)** *https://transmind-arabic-english-h9pqu2tvwjjqdxeq4jan3s.streamlit.app/*
+🔗 **[See Medium Blog](#)** *https://transmind-arabic-english-h9pqu2tvwjjqdxeq4jan3s.streamlit.app/*
 
 ---
 
