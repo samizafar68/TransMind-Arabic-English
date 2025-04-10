@@ -18,38 +18,61 @@ st.markdown("""
         font-family: 'Segoe UI', sans-serif;
     }
     .main-title {
-        font-size: 38px;
+        font-size: 40px;
         font-weight: 700;
         text-align: center;
         color: #1F4E79;
-        margin-bottom: 10px;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
     }
     .sub-title {
         font-size: 18px;
         text-align: center;
         color: #5a5a5a;
-        margin-bottom: 30px;
+        margin-bottom: 40px;
+        font-style: italic;
     }
     .text-area {
         border: 1px solid #d3d3d3;
         border-radius: 10px;
-        padding: 12px;
-        font-size: 16px;
+        padding: 18px;
+        font-size: 18px;
         background-color: #ffffff;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        width: 80%;
+        margin: 0 auto;
+        margin-bottom: 30px;
     }
     .output-box {
         background-color: #f7f9fc;
         border-left: 5px solid #1F4E79;
-        padding: 15px;
+        padding: 20px;
         border-radius: 10px;
-        font-size: 17px;
+        font-size: 18px;
         margin-top: 15px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        width: 80%;
+        margin: 0 auto;
     }
     .footer {
         text-align: center;
         font-size: 14px;
         color: gray;
         margin-top: 40px;
+    }
+    .button {
+        background-color: #1F4E79;
+        color: white;
+        border-radius: 50px;
+        padding: 10px 30px;
+        font-size: 16px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        border: none;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+    .button:hover {
+        background-color: #375a8c;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -158,14 +181,17 @@ def translate(model, source_text, max_len=100):
 st.markdown('<div class="main-title">🌍 Arabic ➜ English Neural Translator</div>', unsafe_allow_html=True)
 st.markdown('<div class="sub-title">Powered by Transformer (Seq2Seq) built from scratch with PyTorch</div>', unsafe_allow_html=True)
 
-source_text = st.text_area("📝 Enter Arabic text:", placeholder="مثال: كيف حالك اليوم؟", height=130, key="arabic_input")
+# Input box with styling
+source_text = st.text_area("📝 Enter Arabic text:", placeholder="مثال: كيف حالك اليوم؟", height=130, key="arabic_input", label_visibility="collapsed")
 
-if st.button("🔁 Translate"):
+# Translate button with hover effect
+if st.button("🔁 Translate", key="translate_button"):
     if source_text.strip():
-        with st.spinner("Translating with Transformer magic... ✨"):
+        with st.spinner("Translating... ✨"):
             translated = translate(model, source_text)
-        st.markdown('<div class="output-box">🗣️ <strong>English Translation:</strong><br>' + translated + '</div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="output-box">🗣️ <strong>English Translation:</strong><br>{translated}</div>', unsafe_allow_html=True)
     else:
         st.warning("⚠️ Please enter some Arabic text to translate.")
 
+# Footer with credits
 st.markdown('<div class="footer">Developed By Samiullah 😉</div>', unsafe_allow_html=True)
