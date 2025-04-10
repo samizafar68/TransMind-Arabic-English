@@ -4,37 +4,58 @@ import json
 import re
 
 # ============================
-# 🔹 1. Page Configuration
+# 🔹 Page Configuration
 # ============================
-st.set_page_config(
-    page_title="Arabic to English Translator",
-    page_icon="🌐",
-    layout="centered"
-)
+st.set_page_config(page_title="Arabic to English Translator", page_icon="🌍", layout="centered")
 
 # ============================
-# 🔹 2. Custom Styling
+# 🔹 Custom Styling
 # ============================
 st.markdown("""
     <style>
-    .title {
-        font-size: 36px;
-        font-weight: bold;
-        color: #2c3e50;
+    body {
+        background: linear-gradient(to right, #f2f2f2, #e6f0ff);
+        font-family: 'Segoe UI', sans-serif;
+    }
+    .main-title {
+        font-size: 38px;
+        font-weight: 700;
         text-align: center;
-        margin-bottom: 20px;
+        color: #1F4E79;
+        margin-bottom: 10px;
+    }
+    .sub-title {
+        font-size: 18px;
+        text-align: center;
+        color: #5a5a5a;
+        margin-bottom: 30px;
+    }
+    .text-area {
+        border: 1px solid #d3d3d3;
+        border-radius: 10px;
+        padding: 12px;
+        font-size: 16px;
+        background-color: #ffffff;
+    }
+    .output-box {
+        background-color: #f7f9fc;
+        border-left: 5px solid #1F4E79;
+        padding: 15px;
+        border-radius: 10px;
+        font-size: 17px;
+        margin-top: 15px;
     }
     .footer {
+        text-align: center;
         font-size: 14px;
         color: gray;
-        text-align: center;
         margin-top: 40px;
     }
     </style>
 """, unsafe_allow_html=True)
 
 # ============================
-# 🔹 3. Load Custom Tokenizer
+# 🔹 Load Tokenizer
 # ============================
 class CustomTokenizer:
     def __init__(self):
@@ -63,7 +84,7 @@ PAD_TOKEN_ID = tokenizer.word2idx["<pad>"]
 UNK_TOKEN_ID = tokenizer.word2idx["<unk>"]
 
 # ============================
-# 🔹 4. Load Transformer Model
+# 🔹 Load Model
 # ============================
 class PositionalEncoding(torch.nn.Module):
     def __init__(self, d_model, max_len=5000):
@@ -111,7 +132,7 @@ model.load_state_dict(torch.load("transformer_ara_eng_custom_tokenizer.pth", map
 model.eval()
 
 # ============================
-# 🔹 5. Translation Function
+# 🔹 Translation Function
 # ============================
 def translate(model, source_text, max_len=100):
     model.eval()
@@ -132,22 +153,19 @@ def translate(model, source_text, max_len=100):
         return translated_text
 
 # ============================
-# 🔹 6. Streamlit App UI
+# 🔹 Streamlit App Layout
 # ============================
-st.markdown('<div class="title">🌐 Arabic ➜ English Translator</div>', unsafe_allow_html=True)
-st.markdown("Translate Arabic text into English using a Transformer-based model built from scratch.")
+st.markdown('<div class="main-title">🌍 Arabic ➜ English Neural Translator</div>', unsafe_allow_html=True)
+st.markdown('<div class="sub-title">Powered by Transformer (Seq2Seq) built from scratch with PyTorch</div>', unsafe_allow_html=True)
 
-source_text = st.text_area("📝 Enter Arabic text", placeholder="مثال: مرحبًا بك في عالم الذكاء الاصطناعي...", height=120)
+source_text = st.text_area("📝 Enter Arabic text:", placeholder="مثال: كيف حالك اليوم؟", height=130, key="arabic_input")
 
 if st.button("🔁 Translate"):
     if source_text.strip():
-        with st.spinner("Translating..."):
+        with st.spinner("Translating with Transformer magic... ✨"):
             translated = translate(model, source_text)
-        st.success("✅ Translation Completed!")
-        st.subheader("🗣️ English Translation:")
-        st.write(f"**{translated}**")
+        st.markdown('<div class="output-box">🗣️ <strong>English Translation:</strong><br>' + translated + '</div>', unsafe_allow_html=True)
     else:
         st.warning("⚠️ Please enter some Arabic text to translate.")
 
-# Footer
-st.markdown('<div class="footer">Developed by Sami | CS Department | GenAI Assignment 3</div>', unsafe_allow_html=True)
+st.markdown('<div class="footer">Made with ❤️ by Sami | GenAI Assignment #3 | Spring 2025</div>', unsafe_allow_html=True)
