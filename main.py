@@ -168,4 +168,4 @@ if st.button("🔁 Translate"):
     else:
         st.warning("⚠️ Please enter some Arabic text to translate.")
 
-st.markdown('<div class="footer">Made with ❤️ by Sami | GenAI Assignment #3 | Spring 2025</div>', unsafe_allow_html=True)
+st.markdown('<div class="footer">Developed By Samiullah 😉</div>', unsafe_allow_html=True)
